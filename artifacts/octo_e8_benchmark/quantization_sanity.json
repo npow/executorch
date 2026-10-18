@@ -1,0 +1,13 @@
+{
+  "sample_count": 1,
+  "output_shape": [
+    1,
+    384
+  ],
+  "all_finite": true,
+  "reference_rms": 0.5824772119522095,
+  "quantized_rms": 0.5890870094299316,
+  "embedding_cosine": 0.9934317469596863,
+  "embedding_rmse": 0.06746428459882736,
+  "scope": "Host PyTorch quantized graph sanity check on the calibration sample; not robot-task evaluation or E8 numerical validation."
+}

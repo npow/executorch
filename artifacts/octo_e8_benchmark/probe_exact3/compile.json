@@ -1,0 +1,23 @@
+{
+  "pte_bytes": 209616,
+  "planned_buffers": [
+    [
+      0,
+      3932160
+    ]
+  ],
+  "input_shape": [
+    2,
+    6,
+    256,
+    256
+  ],
+  "output_shape": [
+    2,
+    176,
+    32,
+    32
+  ],
+  "source_seed": 17,
+  "scope": "Deterministic synthetic convolution for hardware/runtime diagnosis, not policy evaluation"
+}

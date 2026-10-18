@@ -1,0 +1,28 @@
+cbuild-pack:
+  resolved-packs:
+    - resolved-pack: ARM::CMSIS@6.4.0
+      selected-by-pack:
+        - ARM::CMSIS
+        - ARM::CMSIS@^6.2.0
+    - resolved-pack: ARM::CMSIS-Compiler@2.3.0
+      selected-by-pack:
+        - ARM::CMSIS-Compiler
+        - ARM::CMSIS-Compiler@^2.1.0
+    - resolved-pack: ARM::CMSIS-NN@8.0.0
+      selected-by-pack:
+        - ARM::CMSIS-NN
+    - resolved-pack: ARM::Cortex_DFP@1.2.0
+      selected-by-pack:
+        - ARM::Cortex_DFP
+    - resolved-pack: ARM::SSE_320_BSP@1.0.0
+      selected-by-pack:
+        - ARM::SSE_320_BSP@1.0.0
+    - resolved-pack: ARM::ethos-u-core-driver@1.26.5
+      selected-by-pack:
+        - ARM::ethos-u-core-driver@^1.26.2
+    - resolved-pack: AlifSemiconductor::Ensemble@2.2.1
+      selected-by-pack:
+        - AlifSemiconductor::Ensemble@^2.2.0-0
+    - resolved-pack: PyTorch::ExecuTorch@1.5.1
+      selected-by-pack:
+        - PyTorch::ExecuTorch@1.5.1

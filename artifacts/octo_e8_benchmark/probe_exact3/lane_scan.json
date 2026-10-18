@@ -1,0 +1,200 @@
+{
+  "original_delay": "0xb0b",
+  "source_crc": 1198039628,
+  "post_crc": 319770069,
+  "bad_bytes": 93945,
+  "scan": [
+    {
+      "lane": 0,
+      "delay": 0,
+      "bad_lane_bytes": 332,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 1,
+      "bad_lane_bytes": 324,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 2,
+      "bad_lane_bytes": 290,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 3,
+      "bad_lane_bytes": 247,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 4,
+      "bad_lane_bytes": 86,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 5,
+      "bad_lane_bytes": 14,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 6,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 7,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 8,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 9,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 10,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 11,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 12,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 13,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 14,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 0,
+      "delay": 15,
+      "bad_lane_bytes": 0,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 0,
+      "bad_lane_bytes": 275,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 1,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 2,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 3,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 4,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 5,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 6,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 7,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 8,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 9,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 10,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 11,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 12,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 13,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 14,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    },
+    {
+      "lane": 1,
+      "delay": 15,
+      "bad_lane_bytes": 279,
+      "total_lane_bytes": 512
+    }
+  ]
+}

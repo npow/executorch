@@ -1,0 +1,35 @@
+project:
+  packs:
+  - pack: PyTorch::ExecuTorch@1.5.1
+  - pack: ARM::CMSIS
+  misc:
+  - CPP:
+    - -std=gnu++17
+    - -Wno-deprecated-declarations
+  - for-compiler: GCC
+    C:
+    - -Wno-psabi
+    CPP:
+    - -Wno-psabi
+    Link:
+    - -Wl,-u,_printf_float
+    - -Wl,--wrap=ospi_send_polling
+  groups:
+  - group: App
+    files:
+    - file: ./src/app_main.cpp
+    - file: ./src/appkit_psram.cpp
+    - file: ./src/arm_embedded_module.cpp
+    - file: ./src/arm_embedded_module.hpp
+    - file: ./src/history_layout_copy.cpp
+    - file: ./src/history_layout_cat.cpp
+  layers:
+  - layer: $Board-Layer$
+    type: Board
+  - layer: $AI-Layer$
+    type: AI
+  output:
+    type:
+    - elf
+    - hex
+    - map

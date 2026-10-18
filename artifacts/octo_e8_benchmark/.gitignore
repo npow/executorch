@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.bin
+*.pt
+*.pt2
+*.pte
+*.npz
+*.tosa
+*.log
+firmware/out/
+firmware/tmp/
+firmware/.cmsis/tools-environment.yml
+firmware/*.cbuild-idx.yml
+firmware/*.cbuild-mlops.yml
+*.base@*
+*.update@*

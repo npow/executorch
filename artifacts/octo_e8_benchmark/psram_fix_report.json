@@ -1,0 +1,72 @@
+{
+  "status": "fixed_latency_regression_passed_full_policy_pending",
+  "board": "Alif AppKit-E8 APS512XXN dual-octal PSRAM at25MHz",
+  "root_evidence": "Variable-latency reads returned odd bytes delayed by four DDR clocks under larger NPU workloads. Fixed read latency removes the reproduced readback corruption.",
+  "model_sha256": "b76ccfe9d87ac5dbb1b32a277ea52d3ae400685879a499cc88254fa298b71a90",
+  "model_bytes": 209616,
+  "before": {
+    "read_latency": "variable4cycles, push-out8",
+    "npu_completed": true,
+    "runtime_error": "Ethos-U output tensor size/layout metadata invalid after NPU completion",
+    "model_readback_bad_bytes": 93945,
+    "bad_even_bytes": 0,
+    "bad_odd_bytes": 93945,
+    "evidence": [
+      "probe_exact3/baseline.log",
+      "probe_exact3/lane_scan.json",
+      "probe_exact3/post_npu_model.bin"
+    ]
+  },
+  "after": {
+    "read_latency": "fixed8cycles; MR0[5]=1; XIPwait7; variablelatencydetectiondisabled",
+    "output_check": {
+      "mode": 11,
+      "weights": "psram",
+      "scratch": "psram",
+      "memory_type": "normal",
+      "state": 5,
+      "error": 0,
+      "elapsed_ms": 1642,
+      "npu_elapsed_ms": 944,
+      "npu_result": 0,
+      "npu_status": "0xffff0020",
+      "qread": 1940,
+      "qsize": 1940,
+      "mem_attr": [
+        "0x20",
+        "0x20",
+        "0x24",
+        "0x24"
+      ],
+      "host_output_read_seconds": 9.785563541998272,
+      "output_elements": 360448,
+      "all_finite": true,
+      "max_abs_error": 0.0010555572807788849,
+      "rmse": 5.559817054745508e-06,
+      "cosine": 1.0,
+      "output_sha256": "b24f7476d628b20f2984a52f8b053bdc5d5c9e16858e575b6594aeb282585698",
+      "output_strides": [
+        180224,
+        1024,
+        32,
+        1
+      ],
+      "dma_chunk_bytes": 0
+    },
+    "model_integrity": {
+      "source_bytes": 209616,
+      "bad_bytes": 0,
+      "source_crc32": 1198039628,
+      "post_npu_crc32": 1198039628,
+      "source_sha256": "b76ccfe9d87ac5dbb1b32a277ea52d3ae400685879a499cc88254fa298b71a90",
+      "post_npu_sha256": "b76ccfe9d87ac5dbb1b32a277ea52d3ae400685879a499cc88254fa298b71a90"
+    }
+  },
+  "controlled_conditions": [
+    "Same synthetic input and model weights generated with source seed17",
+    "Same209616-byteExecuTorchPTE",
+    "Runtime metadata inSRAM; tensors/weights/NPU scratch inPSRAM",
+    "Same serialized command staging, noDMAfragmentation"
+  ],
+  "scope": "Three-convolution reproducer only. Full Octo and ACT latency still pending."
+}

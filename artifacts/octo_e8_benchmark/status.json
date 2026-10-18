@@ -1,0 +1,45 @@
+{
+  "status": "fixed_firmware_ready_waiting_for_board_usb",
+  "board": "Alif AppKit-E8",
+  "runtime": "ExecuTorch1.5.1 + Ethos-U85",
+  "quantization": "INT8 PTQ, one calibration sample",
+  "action_chunk_shape": [
+    1,
+    4,
+    7
+  ],
+  "diffusion_steps": 20,
+  "full_policy_latency_ms": null,
+  "head_only_verified_median_ms": 527,
+  "compiled_model_bytes": 29761040,
+  "blocker": "J-Link USB device disappeared during ACT final repeat; host IOUSB enumeration shows no SEGGER/J-Link device. Octo has not acquired board since ACT took ownership.",
+  "passed": [
+    "Full-file on-device model and fixture CRC32",
+    "On-board5D image layout copy roundtrip and expected physical order",
+    "Both full model methods loaded",
+    "Head-only20-step sampler completed6runs"
+  ],
+  "quality": "Robot task quality not evaluated; no full-policy output produced.",
+  "logs": [
+    "board.log",
+    "board_failure.json",
+    "npu_stall_registers.json",
+    "head_board_report.json"
+  ],
+  "psram_fix_report": "psram_fix_report.json",
+  "firmware_ready": true,
+  "npu_command_stream": "Original Vela commands, unmodified, copied to SRAM",
+  "cross_model_evidence": {
+    "model": "ACT, not Octo",
+    "warmup_ms": 20901,
+    "completed_measured_ms": [
+      20900,
+      20901,
+      20900,
+      20901
+    ],
+    "source_log": "/Users/npow/code/act-e8-benchmark/board_fixed_latency_allocator_corrected.log",
+    "scope": "Completed timing entries from log; final output and stage report not harvested because USB disconnected."
+  },
+  "restoration_owner": "ACT task 01a14cb7-dffa-7a62-9e7b-78552b1130a9; no handoff to Octo occurred"
+}

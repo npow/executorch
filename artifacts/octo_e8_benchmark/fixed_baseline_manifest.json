@@ -1,0 +1,44 @@
+{
+  "board": "Alif AppKit-E8",
+  "npu_command_stream": "Original unmodified Vela commands copied into SRAM",
+  "method_metadata": "Internal SRAM; one planned-memory span per model",
+  "read_latency": "Fixed8clocks both x8 dies, controllerWAIT7, variablelatencydetectoff",
+  "files": {
+    "firmware/out/cmsis-executorch/DevKit-E8/Debug/cmsis-executorch.elf": {
+      "bytes": 7629492,
+      "sha256": "a245bc0ebf5b148a8527c7f50500a941bec3eb72964595bcbe45b6f0c64bb75f"
+    },
+    "firmware/src/appkit_psram.cpp": {
+      "bytes": 2193,
+      "sha256": "b1b5be35567004ffe533e49f003fe9ce54dcbf8e4746169734055a16b8f4dff1"
+    },
+    "firmware/src/app_main.cpp": {
+      "bytes": 16595,
+      "sha256": "c7c8ed8bcd4e70d00d13646d31c33778667e02dcd53a155d0c2129348f04352b"
+    },
+    "backbone.pte": {
+      "bytes": 28164736,
+      "sha256": "f23bf93b35f7de0cff1b0a9678df249cb6caf90316870a2bba4557735dca547e"
+    },
+    "denoise.pte": {
+      "bytes": 1596304,
+      "sha256": "2a4bcc6b3aa73e68f175920eb835481339cf61f23941c5cdbece16c41a29166e"
+    },
+    "primary.bin": {
+      "bytes": 393216,
+      "sha256": "8e574e155028a2d3490d63990f8a4352203717c61e2dbb85d7d3417281c1021f"
+    },
+    "wrist.bin": {
+      "bytes": 98304,
+      "sha256": "3a3ed164e42500a1c5b2d0093f0a813d27dc50d038f330cc100a7e70ece2e6e4"
+    },
+    "language.bin": {
+      "bytes": 49152,
+      "sha256": "66f8b2c31d0d406b48b6a170189c7d009885985a55cdd5d0869ac4f48ebbc6df"
+    },
+    "quantized_embedding.bin": {
+      "bytes": 1536,
+      "sha256": "9575978065a7012afcba92e5324ef9fc9c3d0edef3b4c4996c78d8aa6e2155a3"
+    }
+  }
+}

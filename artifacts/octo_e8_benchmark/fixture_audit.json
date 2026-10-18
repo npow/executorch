@@ -1,0 +1,14 @@
+{
+  "primary": {
+    "bytes": 393216,
+    "matches_export_input": true
+  },
+  "wrist": {
+    "bytes": 98304,
+    "matches_export_input": true
+  },
+  "language": {
+    "bytes": 49152,
+    "matches_export_input": true
+  }
+}

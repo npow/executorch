@@ -1,0 +1,10 @@
+RSetType 2
+connect
+loadfile /Users/npow/code/executorch/artifacts/octo_e8_benchmark/firmware/out/cmsis-executorch/DevKit-E8/Debug/cmsis-executorch.elf
+r
+w4 0xE000ED08 0x80200000
+wreg MSP 0x20100000
+SetPC 0x802007c0
+g
+sleep 1000
+exit

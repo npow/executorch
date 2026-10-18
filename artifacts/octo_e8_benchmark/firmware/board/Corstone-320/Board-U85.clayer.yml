@@ -1,0 +1,65 @@
+# Copyright 2026 Arm Limited and/or its affiliates.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Corstone-320 (SSE-320) board bring-up for the Ethos-U85 NPU, trimmed to what
+# a headless ExecuTorch inference runner needs: device startup, stdout over
+# semihosting, and the Ethos-U driver. Audio/video vStreams and VIO are omitted.
+layer:
+  type: Board
+  description: Corstone-320 board setup for headless Ethos-U85 inference
+  for-board: ARM::SSE-320
+  for-device: ARM::SSE-320-FVP
+
+  connections:
+    - connect: Corstone-320
+      provides:
+        - STDIN
+        - STDOUT
+        - STDERR
+        - Heap: 98304 # __HEAP_SIZE in regions_SSE-320.h
+
+  define:
+    - CMSIS_target_header: \"Corstone-320.h\"
+    - ETHOSU85
+    - ARM_MODEL_USE_PMU_COUNTERS
+    # The runner saves the demo image and its measurements through semihosting
+    # (board_save_file in retarget_stdio.c) into this directory, relative to the
+    # model's working directory (the workspace): out/fvp_image.bin, out/fvp_result.txt
+    - APP_RESULT_DIR: \"out\"
+
+  packs:
+    - pack: ARM::CMSIS
+    - pack: ARM::CMSIS-Compiler@^2.1.0
+    - pack: ARM::ethos-u-core-driver@^1.25.2
+    - pack: ARM::SSE_320_BSP@1.0.0
+
+  components:
+    - component: CMSIS:CORE
+
+    - component: CMSIS-Compiler:CORE
+    - component: CMSIS-Compiler:STDERR:Custom
+    - component: CMSIS-Compiler:STDIN:Custom
+    - component: CMSIS-Compiler:STDOUT:Custom
+
+    - component: Device:Definition
+    - component: Device:Startup&C Startup
+
+    - component: Device:Native Driver:SysCounter
+    - component: Device:Native Driver:SysTimer
+    - component: Device:Native Driver:Timeout
+
+    - component: Machine Learning:NPU Support:Ethos-U Driver&Generic U85
+
+  groups:
+    - group: Board
+      files:
+        - file: ./main.c
+        - file: ./main.h
+        - file: ./ethos_setup.c
+        - file: ./retarget_stdio.c
+
+  linker:
+    # The linker scripts are the Device:Startup configuration files in
+    # RTE/Device/SSE-320-FVP/; they place the ExecuTorch program
+    # (.rodata.model, ~2.8 MB) in DDR (ROM2), not in the 2 MB FPGA SRAM.
+    - regions: ./regions_SSE-320.h

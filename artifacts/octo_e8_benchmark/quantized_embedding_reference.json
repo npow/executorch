@@ -1,0 +1,8 @@
+{
+  "source_model_sha256": "21b43b100e8952243a3d8222faad5c6b877a2ce7494fb0a856a0182e6f099601",
+  "sample_count": 1,
+  "elements": 384,
+  "sha256": "9575978065a7012afcba92e5324ef9fc9c3d0edef3b4c4996c78d8aa6e2155a3",
+  "all_finite": true,
+  "scope": "PyTorch quantized graph output on the frozen bundled sample; no robot evaluation."
+}

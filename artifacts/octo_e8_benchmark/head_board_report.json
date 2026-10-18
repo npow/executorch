@@ -1,0 +1,90 @@
+{
+  "weights_sha256": "7859219c4f227626df2590133cd64d744870e888461ad26690b97edd5a5c1604",
+  "policy_parameters": 27042060,
+  "observation_frames": 2,
+  "action_shape": [
+    1,
+    4,
+    7
+  ],
+  "diffusion_steps": 20,
+  "language_encoder": "precomputed on host; excluded from timed policy",
+  "input_source": "checkpoint bundled example batch; single sample, no task-quality claim",
+  "status": "completed_board_latency_smoke",
+  "board": "Alif AppKit-E8, M55 HP + Ethos-U85-256",
+  "runtime": "ExecuTorch 1.5.1",
+  "quantization": "INT8 weights and activations, PTQ, one bundled calibration sample",
+  "psram_bus_hz": 25000000,
+  "warmup_runs": 1,
+  "measured_runs": 5,
+  "backbone_ms": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "denoise_ms": [
+    527,
+    527,
+    527,
+    527,
+    527,
+    527
+  ],
+  "total_ms": [
+    527,
+    527,
+    527,
+    527,
+    527,
+    527
+  ],
+  "warm_median_ms": 527,
+  "actions": [
+    0.36334675550460815,
+    4.967763423919678,
+    -1.5291002988815308,
+    -0.7644996047019958,
+    -4.630975723266602,
+    -2.1571755409240723,
+    0.731138288974762,
+    2.3360424041748047,
+    -4.154721736907959,
+    4.233839511871338,
+    -0.2485729455947876,
+    -1.1723283529281616,
+    -2.8712220191955566,
+    4.078303813934326,
+    -0.1805771142244339,
+    4.412505626678467,
+    -4.615057945251465,
+    -1.0783661603927612,
+    -2.635143995285034,
+    4.460906505584717,
+    -2.3328447341918945,
+    -4.966517448425293,
+    4.9511399269104,
+    5.0,
+    -0.3028331696987152,
+    -3.5768790245056152,
+    -2.5478718280792236,
+    4.871376991271973
+  ],
+  "scope": "Diffusion head only: precomputed action embedding to four 7D normalized actions, 20 DDPM steps. Excludes vision/transformer; not end-to-end policy latency.",
+  "artifacts": {
+    "denoise.pte": {
+      "bytes": 1596304,
+      "sha256": "2a4bcc6b3aa73e68f175920eb835481339cf61f23941c5cdbece16c41a29166e"
+    },
+    "embedding.bin": {
+      "bytes": 1536,
+      "sha256": "950606619b2570a6b1e72e93bb3bd4af5bd50c2868adee8cd5d45f6c7df60d49"
+    },
+    "schedule.bin": {
+      "bytes": 240,
+      "sha256": "3dc333242995b8c8a0fa4e9b39e84f141af8ebf9f5cb1ed3bd71b1b76701a6ca"
+    }
+  }
+}

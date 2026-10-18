@@ -1,0 +1,18 @@
+layer:
+  type: AI
+  packs:
+  - pack: PyTorch::ExecuTorch@1.5.1
+  define:
+  - ET_LOG_ENABLED: 1
+  - ET_MIN_LOG_LEVEL: Error
+  - RTE_ML_EXECUTORCH_OP_PORTABLE_TO_DIM_ORDER_COPY: 1
+  - RTE_ML_EXECUTORCH_OP_PORTABLE_CAT: 1
+  components:
+  - component: Machine Learning:ExecuTorch:Runtime
+  - component: Machine Learning:ExecuTorch:Kernel Utils
+  - component: Machine Learning:ExecuTorch:Kernel Registration
+  - component: Machine Learning:ExecuTorch:Backend EthosU
+  - component: Machine Learning:ExecuTorch Operators:Quantized dequantize
+  - component: Machine Learning:ExecuTorch Operators:Quantized quantize
+  - component: Machine Learning:ExecuTorch Operators:Portable view_copy
+  - component: Machine Learning:ExecuTorch Operators:Portable alias_copy

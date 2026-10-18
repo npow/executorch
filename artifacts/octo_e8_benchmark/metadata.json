@@ -1,0 +1,13 @@
+{
+  "weights_sha256": "7859219c4f227626df2590133cd64d744870e888461ad26690b97edd5a5c1604",
+  "policy_parameters": 27042060,
+  "observation_frames": 2,
+  "action_shape": [
+    1,
+    4,
+    7
+  ],
+  "diffusion_steps": 20,
+  "language_encoder": "precomputed on host; excluded from timed policy",
+  "input_source": "checkpoint bundled example batch; single sample, no task-quality claim"
+}

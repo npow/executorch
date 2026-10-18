@@ -1,0 +1,8 @@
+{
+  "source_bytes": 209616,
+  "bad_bytes": 0,
+  "source_crc32": 1198039628,
+  "post_npu_crc32": 1198039628,
+  "source_sha256": "b76ccfe9d87ac5dbb1b32a277ea52d3ae400685879a499cc88254fa298b71a90",
+  "post_npu_sha256": "b76ccfe9d87ac5dbb1b32a277ea52d3ae400685879a499cc88254fa298b71a90"
+}
