@@ -25,7 +25,12 @@ from torch._export.utils import (
 )
 from torch._guards import detect_fake_mode
 from torch.export import ExportedProgram
-from torch.export.exported_program import InputKind, InputSpec, TensorArgument
+from torch.export.exported_program import (
+    ConstantArgument,
+    InputKind,
+    InputSpec,
+    TensorArgument,
+)
 from torch.utils import _pytree as pytree
 
 # Avoid propagating constants for `exir.ops.edge.aten.full.default`.
@@ -50,6 +55,8 @@ _PRIMITIVE_TYPES = (
     torch.memory_format,
 )
 
+_ConstantValue = torch.Tensor | bool | int | float
+
 
 def get_default_skip_targets_no_quant() -> set[EdgeOpOverload]:
     return _DEFAULT_SKIP_TARGETS_NO_QUANT
@@ -58,7 +65,7 @@ def get_default_skip_targets_no_quant() -> set[EdgeOpOverload]:
 def is_const(
     arg,
     exported_program: ExportedProgram,
-    const_node_to_tensor: Mapping[torch.fx.Node, torch.Tensor],
+    const_node_to_tensor: Mapping[torch.fx.Node, _ConstantValue],
 ) -> bool:
     if isinstance(arg, (tuple, list)):
         return all(is_const(x, exported_program, const_node_to_tensor) for x in arg)
@@ -80,7 +87,7 @@ def is_const(
 def get_data(
     arg,
     exported_program: ExportedProgram,
-    const_node_to_tensor: Mapping[torch.fx.Node, torch.Tensor],
+    const_node_to_tensor: Mapping[torch.fx.Node, _ConstantValue],
 ):
     if isinstance(arg, (tuple, list)):
         return type(arg)(
@@ -129,12 +136,14 @@ def get_constant_placeholder_dict(
 def get_propagated_const_tensor_dict(
     exported_program: ExportedProgram,
     custom_skip_targets: Optional[set[EdgeOpOverload]],
-) -> OrderedDict[torch.fx.Node, torch.Tensor]:
+) -> OrderedDict[torch.fx.Node, _ConstantValue]:
     """
-    Propagates constants and returns a dictionary of node->constant tensors.
+    Propagates constants and returns node values, including concrete Python scalars.
     """
     # Initialize dict with all constant placeholders.
-    const_node_to_tensor = get_constant_placeholder_dict(exported_program)
+    const_node_to_tensor: OrderedDict[torch.fx.Node, _ConstantValue] = OrderedDict(
+        get_constant_placeholder_dict(exported_program)
+    )
 
     if custom_skip_targets is not None:
         all_skip_targets = custom_skip_targets
@@ -284,7 +293,7 @@ def erase_constant_node(
 
 
 def create_constant_nodes_and_return_specs(
-    const_node_to_tensor: Mapping[torch.fx.Node, torch.Tensor],
+    const_node_to_tensor: Mapping[torch.fx.Node, _ConstantValue],
     exported_program: ExportedProgram,
 ) -> dict[str, InputSpec]:
     """
@@ -297,6 +306,23 @@ def create_constant_nodes_and_return_specs(
 
     # Iterate over nodes in reverse order.
     for node, prop_constant_tensor in reversed(const_node_to_tensor.items()):
+        if type(prop_constant_tensor) in (bool, int, float):
+            for user in list(node.users):
+                user.args = torch.fx.map_arg(
+                    user.args, lambda arg: prop_constant_tensor if arg is node else arg
+                )
+                user.kwargs = torch.fx.map_arg(
+                    user.kwargs,
+                    lambda arg: prop_constant_tensor if arg is node else arg,
+                )
+            for spec in exported_program.graph_signature.output_specs:
+                if spec.arg.name == node.name:
+                    spec.arg = ConstantArgument(
+                        name=node.name, value=prop_constant_tensor
+                    )
+            erase_constant_node(exported_program, node)
+            continue
+
         if all(x in const_node_to_tensor for x in node.users):
             # All users of this constant node are also constant, so we don't need to create a new constant node.
             erase_constant_node(exported_program, node)
@@ -305,6 +331,7 @@ def create_constant_nodes_and_return_specs(
         if node.op == "placeholder":
             continue
 
+        assert isinstance(prop_constant_tensor, torch.Tensor)
         const_placeholder_node, prop_constant_tensor_fqn = replace_with_constant_node(
             node, prop_constant_tensor, first_user_input, fake_mode, exported_program
         )
