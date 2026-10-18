@@ -35,6 +35,7 @@ from executorch.backends.qualcomm._passes import (
     DecomposeExpM1,
     DecomposeFill,
     DecomposeFloorDivide,
+    DecomposeGeluTanh,
     DecomposeGlu,
     DecomposeHyperbolicVariants,
     DecomposeLinalgVectorNorm,
@@ -199,6 +200,7 @@ class QnnPassManager(PassManager):
             DecomposeExpM1,
             DecomposeFill,
             DecomposeGlu,
+            DecomposeGeluTanh,
             DecomposeHyperbolicVariants,
             DecomposeRemainder,
             DecomposeSelectScatter,
@@ -232,6 +234,7 @@ class QnnPassManager(PassManager):
             DecomposeExpM1,
             DecomposeFill,
             DecomposeVar,
+            DecomposeGeluTanh,
             # DecomposeFloorDivide does not apply to the annotation pipeline,
             # since the CPU QDQ model would reduce accuracy.
             # We keep div and floor operations in floating-point to maintain precision.
