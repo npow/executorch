@@ -46,31 +46,48 @@ class ExpandBroadcastTensorShape(ExportPass):
                         # promotion into unrelated consumers (e.g. an in-place mutation of a
                         # rank-0 user input), producing a rank-mismatched USER_INPUT_MUTATION
                         # write-back that fails in to_executorch().
-                        # Dedupe reshapes by (arg, new_rank) so that multiple broadcast ops
+                        # Dedupe reshapes by input and output rank so that broadcast ops
                         # sharing the same operand and target rank reuse a single view_copy
                         # instead of each creating their own.
-                        cache_key = (arg, tuple(new_rank))
+                        cache_key = (arg, output_rank)
                         reshape_node = reshape_cache.get(cache_key)
                         if reshape_node is None:
-                            with graph_module.graph.inserting_after(arg):
-                                reshape_node = graph_module.graph.create_node(
-                                    "call_function",
-                                    exir_ops.edge.aten.view_copy.default,
-                                    (arg, tuple(new_rank)),
-                                )
-                                # try skip dq_ops to get correct param node if applicable
-                                arg_meta = (
-                                    arg.args[0].meta
-                                    if arg.target in dq_ops
-                                    else arg.meta
+                            # Raw SymInts in view sizes are not bound FX nodes. Leading
+                            # unsqueezes preserve dynamic extents without size arguments.
+                            symbolic = any(
+                                isinstance(size, torch.SymInt)
+                                for size in arg.meta["val"].shape
+                            )
+                            arg_meta = (
+                                arg.args[0].meta if arg.target in dq_ops else arg.meta
+                            )
+                            value = arg_meta["val"]
+                            reshape_node = arg
+                            leading_dims = output_rank - input_rank
+                            for _ in range(leading_dims if symbolic else 1):
+                                with graph_module.graph.inserting_after(reshape_node):
+                                    reshape_node = graph_module.graph.create_node(
+                                        "call_function",
+                                        (
+                                            exir_ops.edge.aten.unsqueeze_copy.default
+                                            if symbolic
+                                            else exir_ops.edge.aten.view_copy.default
+                                        ),
+                                        (
+                                            reshape_node,
+                                            0 if symbolic else tuple(new_rank),
+                                        ),
+                                    )
+                                value = (
+                                    value.unsqueeze(0)
+                                    if symbolic
+                                    else value.reshape(new_rank)
                                 )
                                 # meta needs to be copied elementwisely for fake-tensor
                                 # to be updated correctly and not affect meta of arg
                                 for k, v in arg_meta.items():
                                     reshape_node.meta[k] = v
-                                reshape_node.meta["val"] = reshape_node.meta[
-                                    "val"
-                                ].reshape(new_rank)
+                                reshape_node.meta["val"] = value
                             reshape_cache[cache_key] = reshape_node
                         node.replace_input_with(arg, reshape_node)
 
